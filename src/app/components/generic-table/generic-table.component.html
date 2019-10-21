@@ -1,0 +1,54 @@
+<table class="generic-table center">
+  <thead>
+    <tr>
+      <td [attr.colspan]="leftColspan">
+        <label class="control-label">
+          Records Per Page
+          <select (ngModelChange)="changePageSize($event)" [(ngModel)]="ItemsPerPage">
+            <option *ngFor="let item of pageSize">{{ item }}</option>
+          </select>
+        </label>
+        <label class="control-label">
+          Total Records:
+          <label class="info-text">
+            {{TotalCount}}
+          </label>
+        </label>
+      </td>
+      <td [attr.colspan]="rightColspan" class="text-right">
+        <app-pagination [pager]="pager" [ItemsPerPage]="ItemsPerPage" [data]="data"
+          (pagerChange)="changePagination($event)">
+        </app-pagination>
+      </td> 
+    </tr>
+
+    <tr>
+      <ng-container *ngFor="let item of filterKeys | keyvalue:sortNull">
+        <td (click)="sort(item.key)">{{item.key | uppercase}}
+          <span *ngIf="sorkKey==item.key && isAsc"><i class="up sorticon"></i></span>
+          <span *ngIf="sorkKey==item.key && !isAsc"><i class="down sorticon"></i></span>
+        </td>
+      </ng-container>
+    </tr>
+
+  </thead>
+
+  <tbody *ngIf="!loading">
+    <tr>
+      <ng-container *ngFor="let item of filterKeys | keyvalue:sortNull">
+        <td>
+          <div class="inner-addon right-addon searchBox">
+            <input type='text' [(ngModel)]="item.value" (change)="search(item.value,item.key)" class="searchInput"
+              placeholder="Search">
+          </div>
+        </td>
+      </ng-container>
+    </tr>
+    <tr *ngFor="let item of visibleList | slice:(page-1)*ItemsPerPage:page*ItemsPerPage">
+      <ng-container *ngFor="let item of item | keyvalue:sortNull">
+        <td>{{item.value}}</td>
+      </ng-container>
+    </tr>
+  </tbody>
+
+</table>

@@ -1,0 +1,52 @@
+@import "variables";
+
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 0px;
+    border-radius: 4px;
+    li{
+      display:inline-block;
+      cursor: pointer;
+      a,span{
+        position: relative;
+        float: left;
+        padding: 4px 6px;
+        margin-left: -1px;
+        line-height: 16px;
+        color: $color-paginate-primary;
+        background-color: $color-white;
+        border: $border-default;
+        text-decoration: none;
+        &:focus, &:hover{
+          z-index: 2;
+          color: $color-paginate-focus;
+          background-color: $color-paginate-focus-bg;
+        }
+      }
+      &:first-child>a, &:first-child>span{
+        margin-left: 0;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+      &:last-child>a, &:last-child>span{
+        margin-right: 0;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+    }
+    .disabled{
+      a,a:focus,a:hover,span,span:focus,span:hover{
+        cursor: not-allowed;
+        color: $color-paginate-disabled;
+        background-color: $color-white;
+      }
+    }
+    .active>a,.active>a:focus,.active>a:hover,.active>span,.active>span:focus,.active>span:hover{
+      z-index: 3;
+      cursor: default;
+      color: $color-white;
+      background-color: $color-paginate-primary;
+      border-color: $color-paginate-primary;
+    }
+  }
